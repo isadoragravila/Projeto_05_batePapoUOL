@@ -1,5 +1,4 @@
 body {
-    background-color: lightgreen;
     font-family: 'Roboto', sans-serif;
     background-color: #F3F3F3;
 }
@@ -42,7 +41,7 @@ strong {
     max-width: 414px;
     width: 100%;
     background-color: #F3F3F3;
-    margin-bottom: 84px;
+    padding-bottom: 83px;
     margin-top: 80px;
 }
 
@@ -122,4 +121,56 @@ strong {
     line-height: 21px;
     font-style: italic;
     color: black;
+}
+
+.escondido {
+    display: none;
+}
+
+.fundo {
+    background-color: rgba(0, 0, 0, 0.6);
+    height: 100%;
+    width: 414px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.barra-lateral {
+    background-color: #ffffff;
+    width: 259px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    overflow-y: auto;
+}
+
+.barra-lateral p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    color: black;
+}
+
+.barra-lateral .cima {
+    padding: 20px 30px;
+}
+
+.barra-lateral .titulo {
+    padding: 18px 30px;
+}
+
+.barra-lateral .alinhamento {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 8px 16px;
+}
+
+.barra-lateral ion-icon {
+    font-size: 25px;
+    margin-right: 8px;
 }

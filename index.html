@@ -13,15 +13,47 @@
 
 </head>
 <body>
+    <div class="fundo escondido">
+        <div class="barra-lateral">
+            <div class="cima"><p><strong>Escolha um contato para enviar mensagem:</strong></p></div>
+            <div class="pessoas">
+                <div class="alinhamento" onclick="destinatario ()">
+                    <ion-icon name="people"></ion-icon>
+                    <p>Todos</p>
+                </div>
+                <div class="alinhamento" onclick="destinatario ()">
+                    <ion-icon name="person-circle"></ion-icon>
+                    <p>João</p>
+                </div>
+                <div class="alinhamento" onclick="destinatario ()">
+                    <ion-icon name="person-circle"></ion-icon>
+                    <p>Maria</p>
+                </div>
+            </div>
+            <div class="visibilidade">
+                <div class="titulo"><p><strong>Escolha a visibilidade:</strong></p></div>
+                <div class="alinhamento" onclick="tipoMensagem ()">
+                    <ion-icon name="lock-open"></ion-icon>
+                    <p>Público</p>
+                </div>
+                <div class="alinhamento" onclick="tipoMensagem ()">
+                    <ion-icon name="lock-closed"></ion-icon>
+                    <p>Reservadamente</p>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="topo">
         <img src="images/logo.png" />
-        <ion-icon name="people"></ion-icon>
+        <ion-icon name="people" onclick="barraLateral ()"></ion-icon>
     </div>
     <div class="conteudo"></div>
     <div class="barra-inferior">
         <input type="text" placeholder="Escreva aqui..." />
         <ion-icon name="paper-plane-outline" onclick="enviarMensagem ()"></ion-icon>
     </div>
+    
+    
 
 
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>

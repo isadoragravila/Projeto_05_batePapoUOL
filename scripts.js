@@ -53,6 +53,7 @@ function mensagens (resposta) {
         `
         }
     }
+    conteudo.scrollIntoView(false);
 }
 
 function enviarMensagem () {
@@ -70,6 +71,12 @@ function enviarMensagem () {
     document.querySelector("input").value = "";
 }
 
-function refresh () {
-    window.location.reload();
+function refresh (error) {
+    console.log(error.response.status);
+    //window.location.reload();
+}
+
+function barraLateral () {
+    const elemento = document.querySelector(".fundo");
+    elemento.classList.remove("escondido");
 }

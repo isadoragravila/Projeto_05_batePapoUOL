@@ -17,31 +17,15 @@
         <img src="images/logo.png" />
         <ion-icon name="people"></ion-icon>
     </div>
-    <div class="conteudo">
-
-        <div class="mensagem cinza">
-            <p><span>(00:00:00) </span><strong>João</strong> entra na sala...</p>
-        </div>
-        <div class="mensagem branca">
-            <p><span>(00:00:00) </span><strong>João</strong> para <strong>Todos:</strong>  Bom dia</p>
-        </div>
-        <div class="mensagem branca">
-            <p><span>(00:00:00) </span><strong>Maria</strong> para <strong>João:</strong>  Oi João :)</p>
-        </div>
-        <div class="mensagem rosa">
-            <p><span>(00:00:00) </span><strong>João</strong> reservadamente para <strong>Maria:</strong>  Oi gatinha quer tc?</p>
-        </div>
-        <div class="mensagem cinza">
-            <p><span>(00:00:00) </span><strong>Maria</strong> sai da sala...</p>
-        </div>
-    </div>
+    <div class="conteudo"></div>
     <div class="barra-inferior">
         <input type="text" placeholder="Escreva aqui..." />
-        <ion-icon name="paper-plane-outline"></ion-icon>
+        <ion-icon name="paper-plane-outline" onclick="enviarMensagem ()"></ion-icon>
     </div>
 
 
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="scripts.js"></script>
 </body>
 </html>

@@ -30,5 +30,46 @@ function atualizarPagina () {
 }
 
 function mensagens (resposta) {
-    
+    let conteudo = document.querySelector(".conteudo");
+    conteudo.innerHTML = "";
+    for (let i = 0; i < resposta.data.length; i++) {
+        if (resposta.data[i].type === "status") {
+            conteudo.innerHTML += `
+            <div class="mensagem cinza">
+                <p><span>${resposta.data[i].time} </span><strong>${resposta.data[i].from}</strong> ${resposta.data[i].text}</p>
+            </div>
+        `
+        } else if (resposta.data[i].type === "message") {
+            conteudo.innerHTML += `
+            <div class="mensagem branca">
+                <p><span>${resposta.data[i].time} </span><strong>${resposta.data[i].from}</strong> para <strong>${resposta.data[i].to}:</strong>  ${resposta.data[i].text}</p>
+            </div>
+        `
+        } else if (resposta.data[i].type === "private_message" && resposta.data[i].to === nomeUsuario) {
+            conteudo.innerHTML += `
+            <div class="mensagem rosa">
+                <p><span>${resposta.data[i].time} </span><strong>${resposta.data[i].from}</strong> reservadamente para <strong>{resposta.data[i].to}:</strong>  ${resposta.data[i].text}</p>
+            </div>
+        `
+        }
+    }
+}
+
+function enviarMensagem () {
+    const mensagemDigitada = document.querySelector("input").value;
+
+    const dadosMensagem = {
+        from: nomeUsuario,
+        to: "Todos", //mudar no bonus
+        text: mensagemDigitada,
+        type: "message" //mudar no bonus
+    }
+    const promise = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', dadosMensagem);
+    promise.then(atualizarPagina);
+    promise.catch(refresh);
+    document.querySelector("input").value = "";
+}
+
+function refresh () {
+    window.location.reload();
 }

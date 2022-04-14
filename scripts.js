@@ -1,4 +1,5 @@
 let type = "message";
+let tipo = "público";
 let nomeDestino = "Todos";
 let nomeUsuario = prompt("Qual o seu nome?");
 entrarNasala ();
@@ -138,10 +139,12 @@ function destinatario (elemento) {
 
     let pai = elemento.parentNode;
     pai.querySelector(".transparente").classList.add("opaco");
+
+    document.querySelector(".barra-inferior p").innerHTML = `Enviando para ${nomeDestino} (${tipo})`;
 }
 
 function tipoMensagem (elemento) {
-    let tipo = elemento.querySelector("p").innerHTML;
+    tipo = elemento.querySelector("p").innerHTML;
 
     let verificaCheck = document.querySelector(".visibilidade .opaco");
     if (verificaCheck !== null) {
@@ -158,4 +161,7 @@ function tipoMensagem (elemento) {
         console.log("private_message");
         type = "private_message";
     }
+
+    tipo = tipo.toLowerCase();
+    document.querySelector(".barra-inferior p").innerHTML = `Enviando para ${nomeDestino} (${tipo})`;
 }

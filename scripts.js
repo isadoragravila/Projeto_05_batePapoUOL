@@ -49,7 +49,7 @@ function mensagens (resposta) {
                 <p><span>${resposta.data[i].time} </span><strong>${resposta.data[i].from}</strong> para <strong>${resposta.data[i].to}:</strong>  ${resposta.data[i].text}</p>
             </div>
         `;
-        } else if (resposta.data[i].type === "private_message" && resposta.data[i].to === nomeUsuario) {
+        } else if (resposta.data[i].type === "private_message" && (resposta.data[i].to === nomeUsuario || resposta.data[i].to === "Todos")) {
             conteudo.innerHTML += `
             <div class="mensagem rosa">
                 <p><span>${resposta.data[i].time} </span><strong>${resposta.data[i].from}</strong> reservadamente para <strong>${resposta.data[i].to}:</strong>  ${resposta.data[i].text}</p>
@@ -68,6 +68,10 @@ function mensagens (resposta) {
 
 function enviarMensagem () {
     const mensagemDigitada = document.querySelector("input").value;
+
+    if (mensagemDigitada === "") {
+        return;
+    }
 
     const dadosMensagem = {
         from: nomeUsuario,
@@ -130,7 +134,6 @@ function exibeUsuarios (resposta) {
 
 function destinatario (elemento) {
     nomeDestino = elemento.querySelector("p").innerHTML;
-    console.log(nomeDestino);
 
     let verificaCheck = document.querySelector(".pessoas .opaco");
     if (verificaCheck !== null) {
@@ -155,10 +158,8 @@ function tipoMensagem (elemento) {
     pai.querySelector(".transparente").classList.add("opaco");
 
     if (tipo === "Público") {
-        console.log("message");
         type = "message";
     } else if (tipo === "Reservadamente") {
-        console.log("private_message");
         type = "private_message";
     }
 

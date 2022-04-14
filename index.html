@@ -20,13 +20,19 @@
             <div class="pessoas"></div>
             <div class="visibilidade">
                 <div class="titulo"><p><strong>Escolha a visibilidade:</strong></p></div>
-                <div class="alinhamento" onclick="tipoMensagem ()">
-                    <ion-icon name="lock-open"></ion-icon>
-                    <p>Público</p>
+                <div class="alinhamento">
+                    <div class="clicavel" onclick="tipoMensagem (this)">
+                        <ion-icon name="lock-closed"></ion-icon>
+                        <p>Público</p>
+                    </div>
+                    <ion-icon name="checkmark" class="transparente"></ion-icon>
                 </div>
-                <div class="alinhamento" onclick="tipoMensagem ()">
-                    <ion-icon name="lock-closed"></ion-icon>
-                    <p>Reservadamente</p>
+                <div class="alinhamento">
+                    <div class="clicavel" onclick="tipoMensagem (this)">
+                        <ion-icon name="lock-closed"></ion-icon>
+                        <p>Reservadamente</p>
+                    </div>
+                    <ion-icon name="checkmark" class="transparente"></ion-icon>
                 </div>
             </div>
         </div>

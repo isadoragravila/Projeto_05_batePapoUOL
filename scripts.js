@@ -1,3 +1,5 @@
+let type = "message";
+let nomeDestino = "Todos";
 let nomeUsuario = prompt("Qual o seu nome?");
 entrarNasala ();
 
@@ -17,6 +19,7 @@ function erroEntrada () {
 function sucessoEntrada () {
     setInterval(manterConexao, 4000);
     setInterval(atualizarPagina, 3000);
+    setInterval(buscaUsuarios, 10000);
 }
 
 function manterConexao () {
@@ -48,7 +51,13 @@ function mensagens (resposta) {
         } else if (resposta.data[i].type === "private_message" && resposta.data[i].to === nomeUsuario) {
             conteudo.innerHTML += `
             <div class="mensagem rosa">
-                <p><span>${resposta.data[i].time} </span><strong>${resposta.data[i].from}</strong> reservadamente para <strong>{resposta.data[i].to}:</strong>  ${resposta.data[i].text}</p>
+                <p><span>${resposta.data[i].time} </span><strong>${resposta.data[i].from}</strong> reservadamente para <strong>${resposta.data[i].to}:</strong>  ${resposta.data[i].text}</p>
+            </div>
+        `;
+        } else if (resposta.data[i].type === "private_message" && resposta.data[i].from === nomeUsuario) {
+            conteudo.innerHTML += `
+            <div class="mensagem rosa">
+                <p><span>${resposta.data[i].time} </span><strong>${resposta.data[i].from}</strong> reservadamente para <strong>${resposta.data[i].to}:</strong>  ${resposta.data[i].text}</p>
             </div>
         `;
         }
@@ -61,9 +70,9 @@ function enviarMensagem () {
 
     const dadosMensagem = {
         from: nomeUsuario,
-        to: "Todos", //mudar no bonus
+        to: nomeDestino, 
         text: mensagemDigitada,
-        type: "message" //mudar no bonus
+        type: type 
     }
     const promise = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', dadosMensagem);
     promise.then(atualizarPagina);
@@ -96,18 +105,57 @@ function buscaUsuarios () {
 function exibeUsuarios (resposta) {
     let pessoas = document.querySelector(".pessoas");
     pessoas.innerHTML = `
-    <div class="alinhamento" onclick="destinatario ()">
-        <ion-icon name="people"></ion-icon>
-        <p>Todos</p>
+    <div class="alinhamento">
+        <div class="clicavel" onclick="destinatario (this)">
+            <ion-icon name="people"></ion-icon>
+            <p>Todos</p>
+        </div>
+        <ion-icon name="checkmark" class="transparente"></ion-icon>
     </div>
     `;
 
     for (let i = 0; i < resposta.data.length; i++) {
         pessoas.innerHTML += `
-        <div class="alinhamento" onclick="destinatario ()">
-            <ion-icon name="person-circle"></ion-icon>
-            <p>${resposta.data[i].name}</p>
+        <div class="alinhamento">
+            <div class="clicavel" onclick="destinatario (this)">
+                <ion-icon name="person-circle"></ion-icon>
+                <p>${resposta.data[i].name}</p>
+            </div>
+            <ion-icon name="checkmark" class="transparente"></ion-icon>
         </div>
         `;
+    }
+}
+
+function destinatario (elemento) {
+    nomeDestino = elemento.querySelector("p").innerHTML;
+    console.log(nomeDestino);
+
+    let verificaCheck = document.querySelector(".pessoas .opaco");
+    if (verificaCheck !== null) {
+        verificaCheck.classList.remove("opaco");
+    }
+
+    let pai = elemento.parentNode;
+    pai.querySelector(".transparente").classList.add("opaco");
+}
+
+function tipoMensagem (elemento) {
+    let tipo = elemento.querySelector("p").innerHTML;
+
+    let verificaCheck = document.querySelector(".visibilidade .opaco");
+    if (verificaCheck !== null) {
+        verificaCheck.classList.remove("opaco");
+    }
+
+    let pai = elemento.parentNode;
+    pai.querySelector(".transparente").classList.add("opaco");
+
+    if (tipo === "Público") {
+        console.log("message");
+        type = "message";
+    } else if (tipo === "Reservadamente") {
+        console.log("private_message");
+        type = "private_message";
     }
 }

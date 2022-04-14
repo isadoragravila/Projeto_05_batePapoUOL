@@ -38,19 +38,19 @@ function mensagens (resposta) {
             <div class="mensagem cinza">
                 <p><span>${resposta.data[i].time} </span><strong>${resposta.data[i].from}</strong> ${resposta.data[i].text}</p>
             </div>
-        `
+        `;
         } else if (resposta.data[i].type === "message") {
             conteudo.innerHTML += `
             <div class="mensagem branca">
                 <p><span>${resposta.data[i].time} </span><strong>${resposta.data[i].from}</strong> para <strong>${resposta.data[i].to}:</strong>  ${resposta.data[i].text}</p>
             </div>
-        `
+        `;
         } else if (resposta.data[i].type === "private_message" && resposta.data[i].to === nomeUsuario) {
             conteudo.innerHTML += `
             <div class="mensagem rosa">
                 <p><span>${resposta.data[i].time} </span><strong>${resposta.data[i].from}</strong> reservadamente para <strong>{resposta.data[i].to}:</strong>  ${resposta.data[i].text}</p>
             </div>
-        `
+        `;
         }
     }
     conteudo.scrollIntoView(false);
@@ -71,12 +71,43 @@ function enviarMensagem () {
     document.querySelector("input").value = "";
 }
 
-function refresh (error) {
-    console.log(error.response.status);
-    //window.location.reload();
+function refresh () {
+    window.location.reload();
+}
+
+function ocultarBarraLateral () {
+    const elemento = document.querySelector(".fundo");
+    elemento.classList.add("escondido");
+    elemento.classList.remove("aparecendo");
 }
 
 function barraLateral () {
+    buscaUsuarios ();
     const elemento = document.querySelector(".fundo");
     elemento.classList.remove("escondido");
+    elemento.classList.add("aparecendo");
+}
+
+function buscaUsuarios () {
+    const promise = axios.get('https://mock-api.driven.com.br/api/v6/uol/participants');
+    promise.then(exibeUsuarios);
+}
+
+function exibeUsuarios (resposta) {
+    let pessoas = document.querySelector(".pessoas");
+    pessoas.innerHTML = `
+    <div class="alinhamento" onclick="destinatario ()">
+        <ion-icon name="people"></ion-icon>
+        <p>Todos</p>
+    </div>
+    `;
+
+    for (let i = 0; i < resposta.data.length; i++) {
+        pessoas.innerHTML += `
+        <div class="alinhamento" onclick="destinatario ()">
+            <ion-icon name="person-circle"></ion-icon>
+            <p>${resposta.data[i].name}</p>
+        </div>
+        `;
+    }
 }

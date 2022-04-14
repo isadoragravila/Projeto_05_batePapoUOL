@@ -127,19 +127,32 @@ strong {
     display: none;
 }
 
+.aparecendo {
+    display: flex;
+}
+
 .fundo {
     background-color: rgba(0, 0, 0, 0.6);
     height: 100%;
-    width: 414px;
+    max-width: 414px;
+    width: 100%;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 1;
 }
 
+.lateral-esquerda {
+    max-width: 155px;
+    width: 100%;
+    height: 100%;
+    background-color: red;
+}
+
 .barra-lateral {
     background-color: #ffffff;
-    width: 259px;
+    max-width: 259px;
+    width: 100%;
     height: 100%;
     position: absolute;
     top: 0;

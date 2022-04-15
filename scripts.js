@@ -18,7 +18,7 @@ function erroEntrada () {
 }
 
 function sucessoEntrada () {
-    setInterval(manterConexao, 4000);
+    setInterval(manterConexao, 5000);
     setInterval(atualizarPagina, 3000);
     setInterval(buscaUsuarios, 10000);
 }
@@ -109,27 +109,69 @@ function buscaUsuarios () {
 
 function exibeUsuarios (resposta) {
     let pessoas = document.querySelector(".pessoas");
-    pessoas.innerHTML = `
-    <div class="alinhamento">
-        <div class="clicavel" onclick="destinatario (this)">
-            <ion-icon name="people"></ion-icon>
-            <p>Todos</p>
-        </div>
-        <ion-icon name="checkmark" class="transparente"></ion-icon>
-    </div>
-    `;
+    let contador = 0;
 
+    //FOR para saber se o destinatário é ("Todos" ou alguém q saiu da sala) ou se (está dentro da sala)
     for (let i = 0; i < resposta.data.length; i++) {
-        pessoas.innerHTML += `
+        if (nomeDestino !== resposta.data[i].name) {
+            contador++;
+        }
+    }
+
+    //IF se o destinatário for ("Todos" ou alguém q saiu da sala) - ELSE se (está dentro da sala)
+    if (contador === resposta.data.length) {
+        nomeDestino = "Todos";
+        pessoas.innerHTML = `
         <div class="alinhamento">
             <div class="clicavel" onclick="destinatario (this)">
-                <ion-icon name="person-circle"></ion-icon>
-                <p>${resposta.data[i].name}</p>
+                <ion-icon name="people"></ion-icon>
+                <p>Todos</p>
+            </div>
+            <ion-icon name="checkmark" class="transparente opaco"></ion-icon>
+        </div>
+        `;
+    } else {
+        pessoas.innerHTML = `
+        <div class="alinhamento">
+            <div class="clicavel" onclick="destinatario (this)">
+                <ion-icon name="people"></ion-icon>
+                <p>Todos</p>
             </div>
             <ion-icon name="checkmark" class="transparente"></ion-icon>
         </div>
-        `;
+        `;   
     }
+
+    // exibe os nomes dos usuários ativos
+    for (let i = 0; i < resposta.data.length; i++) {
+
+        //IF se destinatário for igual (check aparece) - ELSE se destinatário for diferente (check não aparece)
+        if (resposta.data[i].name === nomeDestino) {
+            pessoas.innerHTML += `
+            <div class="alinhamento">
+                <div class="clicavel" onclick="destinatario (this)">
+                    <ion-icon name="person-circle"></ion-icon>
+                    <p>${resposta.data[i].name}</p>
+                </div>
+                <ion-icon name="checkmark" class="transparente opaco"></ion-icon>
+            </div>
+            `;
+        } else {
+            pessoas.innerHTML += `
+            <div class="alinhamento">
+                <div class="clicavel" onclick="destinatario (this)">
+                    <ion-icon name="person-circle"></ion-icon>
+                    <p>${resposta.data[i].name}</p>
+                </div>
+                <ion-icon name="checkmark" class="transparente"></ion-icon>
+            </div>
+            `;
+        } 
+    }
+
+    //atualiza frase que informa o destinatário
+    document.querySelector(".barra-inferior p").innerHTML = `Enviando para ${nomeDestino} (${tipo})`;
+    contador = 0;
 }
 
 function destinatario (elemento) {

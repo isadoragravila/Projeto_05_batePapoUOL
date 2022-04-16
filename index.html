@@ -37,22 +37,28 @@
             </div>
         </div>
     </div>
-    <div class="topo">
-        <img src="images/logo.png" />
-        <ion-icon name="people" onclick="barraLateral ()"></ion-icon>
-    </div>
-    <div class="conteudo"></div>
-    <div class="barra-inferior">
-        <div>
-            <input type="text" placeholder="Escreva aqui..." />
-            <p>Enviando para Todos (público)</p>
+
+    <div class="conteiner escondido">
+        <div class="topo">
+            <img src="images/logo.png" />
+            <ion-icon name="people" onclick="barraLateral ()"></ion-icon>
         </div>
-        <ion-icon name="paper-plane-outline" onclick="enviarMensagem ()"></ion-icon>
+        <div class="conteudo"></div>
+        <div class="barra-inferior">
+            <div>
+                <input type="text" placeholder="Escreva aqui..." />
+                <p>Enviando para Todos (público)</p>
+            </div>
+            <ion-icon name="paper-plane-outline" onclick="enviarMensagem ()"></ion-icon>
+        </div>
+    </div>
+
+    <div class="tela-entrada centralizado">
+        <div class="primeira-logo"><img src="images/logo.png" /></div>
+        <input type="text" placeholder="Digite seu nome" />
+        <div class="entrar" onclick="entrarNaSala () "><p>Entrar</p></div>
     </div>
     
-    
-
-
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="scripts.js"></script>

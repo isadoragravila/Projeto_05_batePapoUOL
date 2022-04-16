@@ -217,3 +217,72 @@ strong {
 .opaco {
     opacity: 1;
 }
+
+.tela-entrada {
+    background-color: #ffffff;
+    max-width: 414px;
+    width: 100%;
+    height: 600px;
+}
+
+.centralizado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tela-entrada .primeira-logo {
+    height: 236px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.tela-entrada img {
+    width: 130px;
+    height: 92px;
+}
+
+.tela-entrada input {
+    height: 54px;
+    width: 261px;
+    border: 1px solid #D7D7D7;
+    border-radius: 4px;
+    margin-top: 72px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+}
+
+.tela-entrada input:focus {
+    outline: none;
+  }
+
+.tela-entrada ::placeholder {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+    color: #aeaeae;
+    text-align: center;
+}
+
+.tela-entrada .entrar {
+    height: 45px;
+    width: 109px;
+    background-color: #e7e7e7;
+    border-radius: 4px;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.entrar p {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+    color: #696969;
+}

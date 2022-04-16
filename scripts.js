@@ -1,10 +1,10 @@
 let type = "message";
 let tipo = "público";
 let nomeDestino = "Todos";
-let nomeUsuario = prompt("Qual o seu nome?");
-entrarNasala ();
+let nomeUsuario;
 
-function entrarNasala () {
+function entrarNaSala () {
+    nomeUsuario = document.querySelector(".tela-entrada input").value;
     const usuario = { name: nomeUsuario};
     const promise = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', usuario);
 
@@ -13,14 +13,18 @@ function entrarNasala () {
 }
 
 function erroEntrada () {
-    nomeUsuario = prompt("Este nome já está em uso.\n\nEscolha outro nome");
-    entrarNasala();
+    alert("Este nome já está em uso.\n\nEscolha outro nome");
+    nomeUsuario = "";
+    document.querySelector(".tela-entrada input").value = "";
 }
 
 function sucessoEntrada () {
     setInterval(manterConexao, 5000);
     setInterval(atualizarPagina, 3000);
     setInterval(buscaUsuarios, 10000);
+    document.querySelector(".tela-entrada").classList.remove("centralizado");
+    document.querySelector(".tela-entrada").classList.add("escondido");
+    document.querySelector(".conteiner").classList.remove("escondido");
 }
 
 function manterConexao () {
@@ -67,7 +71,7 @@ function mensagens (resposta) {
 }
 
 function enviarMensagem () {
-    const mensagemDigitada = document.querySelector("input").value;
+    const mensagemDigitada = document.querySelector(".barra-inferior input").value;
 
     if (mensagemDigitada === "") {
         return;

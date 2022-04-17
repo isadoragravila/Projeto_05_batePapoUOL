@@ -13,10 +13,34 @@
 
 </head>
 <body>
+    <div class="tela-entrada centralizado">
+        <div class="primeira-logo"><img src="images/logo.png" /></div>
+        <input type="text" placeholder="Digite seu nome" />
+        <div class="entrar centralizado" onclick="entrarNaSala () "><p>Entrar</p></div>
+        <div class="carregando escondido">
+            <img src="images/loading.png" />
+            <p>Entrando...</p></div>
+    </div>
+
+    <div class="conteiner escondido">
+        <div class="topo">
+            <img src="images/logo.png" />
+            <ion-icon name="people" onclick="barraLateral ()"></ion-icon>
+        </div>
+        <div class="conteudo"></div>
+        <div class="barra-inferior">
+            <div>
+                <input type="text" placeholder="Escreva aqui..." />
+                <p>Enviando para Todos (público)</p>
+            </div>
+            <ion-icon name="paper-plane-outline" onclick="enviarMensagem ()"></ion-icon>
+        </div>
+    </div>
+
     <div class="fundo escondido" >
         <div class="lateral-esquerda" onclick="ocultarBarraLateral ()"></div>
         <div class="barra-lateral">
-            <div class="cima"><p><strong>Escolha um contato para enviar mensagem:</strong></p></div>
+            <div class="titulo"><p><strong>Escolha um contato para enviar mensagem:</strong></p></div>
             <div class="pessoas"></div>
             <div class="visibilidade">
                 <div class="titulo"><p><strong>Escolha a visibilidade:</strong></p></div>
@@ -38,27 +62,6 @@
         </div>
     </div>
 
-    <div class="conteiner escondido">
-        <div class="topo">
-            <img src="images/logo.png" />
-            <ion-icon name="people" onclick="barraLateral ()"></ion-icon>
-        </div>
-        <div class="conteudo"></div>
-        <div class="barra-inferior">
-            <div>
-                <input type="text" placeholder="Escreva aqui..." />
-                <p>Enviando para Todos (público)</p>
-            </div>
-            <ion-icon name="paper-plane-outline" onclick="enviarMensagem ()"></ion-icon>
-        </div>
-    </div>
-
-    <div class="tela-entrada centralizado">
-        <div class="primeira-logo"><img src="images/logo.png" /></div>
-        <input type="text" placeholder="Digite seu nome" />
-        <div class="entrar" onclick="entrarNaSala () "><p>Entrar</p></div>
-    </div>
-    
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="scripts.js"></script>

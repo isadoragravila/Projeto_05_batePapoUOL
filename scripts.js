@@ -22,6 +22,14 @@ function sucessoEntrada () {
     setInterval(manterConexao, 5000);
     setInterval(atualizarPagina, 3000);
     setInterval(buscaUsuarios, 10000);
+    setTimeout(trocaTelas, 3000);
+    document.querySelector(".tela-entrada input").classList.add("escondido");
+    document.querySelector(".tela-entrada .entrar").classList.remove("centralizado");
+    document.querySelector(".tela-entrada .entrar").classList.add("escondido");
+    document.querySelector(".tela-entrada .carregando").classList.remove("escondido");
+}
+
+function trocaTelas () {
     document.querySelector(".tela-entrada").classList.remove("centralizado");
     document.querySelector(".tela-entrada").classList.add("escondido");
     document.querySelector(".conteiner").classList.remove("escondido");
@@ -29,7 +37,7 @@ function sucessoEntrada () {
 
 function manterConexao () {
     const usuario = { name: nomeUsuario};
-    const promise = axios.post('https://mock-api.driven.com.br/api/v6/uol/status', usuario);
+    axios.post('https://mock-api.driven.com.br/api/v6/uol/status', usuario);
 }
 
 function atualizarPagina () {
@@ -38,7 +46,7 @@ function atualizarPagina () {
 }
 
 function mensagens (resposta) {
-    let conteudo = document.querySelector(".conteudo");
+    const conteudo = document.querySelector(".conteudo");
     conteudo.innerHTML = "";
     for (let i = 0; i < resposta.data.length; i++) {
         if (resposta.data[i].type === "status") {
@@ -86,7 +94,7 @@ function enviarMensagem () {
     const promise = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', dadosMensagem);
     promise.then(atualizarPagina);
     promise.catch(refresh);
-    document.querySelector("input").value = "";
+    document.querySelector(".barra-inferior input").value = "";
 }
 
 function refresh () {
@@ -112,16 +120,14 @@ function buscaUsuarios () {
 }
 
 function exibeUsuarios (resposta) {
-    let pessoas = document.querySelector(".pessoas");
+    const pessoas = document.querySelector(".pessoas");
     let contador = 0;
-
     //FOR para saber se o destinatário é ("Todos" ou alguém q saiu da sala) ou se (está dentro da sala)
     for (let i = 0; i < resposta.data.length; i++) {
         if (nomeDestino !== resposta.data[i].name) {
             contador++;
         }
     }
-
     //IF se o destinatário for ("Todos" ou alguém q saiu da sala) - ELSE se (está dentro da sala)
     if (contador === resposta.data.length) {
         nomeDestino = "Todos";
@@ -145,10 +151,8 @@ function exibeUsuarios (resposta) {
         </div>
         `;   
     }
-
     // exibe os nomes dos usuários ativos
     for (let i = 0; i < resposta.data.length; i++) {
-
         //IF se destinatário for igual (check aparece) - ELSE se destinatário for diferente (check não aparece)
         if (resposta.data[i].name === nomeDestino) {
             pessoas.innerHTML += `
@@ -172,8 +176,7 @@ function exibeUsuarios (resposta) {
             `;
         } 
     }
-
-    //atualiza frase que informa o destinatário
+    //atualiza frase que informa o destinatário e o tipo
     document.querySelector(".barra-inferior p").innerHTML = `Enviando para ${nomeDestino} (${tipo})`;
     contador = 0;
 }
@@ -181,26 +184,26 @@ function exibeUsuarios (resposta) {
 function destinatario (elemento) {
     nomeDestino = elemento.querySelector("p").innerHTML;
 
-    let verificaCheck = document.querySelector(".pessoas .opaco");
+    const verificaCheck = document.querySelector(".pessoas .opaco");
     if (verificaCheck !== null) {
         verificaCheck.classList.remove("opaco");
     }
 
-    let pai = elemento.parentNode;
+    const pai = elemento.parentNode;
     pai.querySelector(".transparente").classList.add("opaco");
-
+    //atualiza frase que informa o destinatário e o tipo
     document.querySelector(".barra-inferior p").innerHTML = `Enviando para ${nomeDestino} (${tipo})`;
 }
 
 function tipoMensagem (elemento) {
     tipo = elemento.querySelector("p").innerHTML;
 
-    let verificaCheck = document.querySelector(".visibilidade .opaco");
+    const verificaCheck = document.querySelector(".visibilidade .opaco");
     if (verificaCheck !== null) {
         verificaCheck.classList.remove("opaco");
     }
 
-    let pai = elemento.parentNode;
+    const pai = elemento.parentNode;
     pai.querySelector(".transparente").classList.add("opaco");
 
     if (tipo === "Público") {
@@ -212,3 +215,11 @@ function tipoMensagem (elemento) {
     tipo = tipo.toLowerCase();
     document.querySelector(".barra-inferior p").innerHTML = `Enviando para ${nomeDestino} (${tipo})`;
 }
+
+//apertar ENTER para enviar mensagem
+const pressEnter = document.querySelector(".barra-inferior input");
+pressEnter.addEventListener('keypress', function(event){
+    if(event.keyCode === 13) {
+        enviarMensagem ();
+    }
+  });
